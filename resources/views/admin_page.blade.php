@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($products as $product)
+                    @foreach ($products as $product)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $product->name }}</td>
@@ -39,27 +39,23 @@
                             <td class="text-center">{{ $product->weight }}</td>
                             <td class="text-center">Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
                             @if ($product->condition == 'Baru')
-                                <td class="text-center">
-                                    <div class="rounded px-3 py-1 bg-success w-50 mx-auto">{{ $product->condition }}
-                                    </div>
-                                </td>
+                                <td class="text-center"><div
+                                        class="rounded px-3 py-1 bg-success w-50 mx-auto">{{ $product->condition }}</div></td>
                             @else
-                                <td class="text-center">
-                                    <div class="rounded px-3 py-1 bg-dark text-white w-50 mx-auto">
-                                        {{ $product->condition }}</div>
-                                </td>
+                                <td class="text-center"><div
+                                        class="rounded px-3 py-1 bg-dark text-white w-50 mx-auto">{{ $product->condition }}</div></td>
                             @endif
                             <td class="d-flex">
                                 <a href="{{ route('edit_product', ['product' => $product->id]) }}"
                                     class="btn btn-warning btn-md">Update</a>
-                                <form action="{{ route('delete_product', ['product' => $product->id]) }}"
-                                    method="POST" class="ms-1">
-                                    @csrf
+                                <form action="{{ route('delete_product', ['product' => $product->id]) }}" method="POST"
+                                    class="ms-1">
+                                    @csrf()
                                     <button class="btn btn-md btn-danger" type="submit">Delete</button>
                                 </form>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

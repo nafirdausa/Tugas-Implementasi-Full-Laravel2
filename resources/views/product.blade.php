@@ -9,29 +9,44 @@
                 <div class="mt-3 bg-dark mx-auto rounded" style="height: 3px;width: 75px"></div>
                     <div class="grid mx-3 mt-4">
                         <div class="row row-gap-4">
-                            @foreach ($list as $item)
+                            @foreach ($products as $item)
                                 <div class="col-3">
                                     <div class="card bg-white w-100">
-                                        <img class="rounded" src="{{ $item['image'] }}">
+                                        @if($item->image)
+                                        <img class="rounded" src="{{ Storage::url($item->image) }}">
+                                        @else
+                                        <p>Tidak ada gambar product</p>
+                                        @endif
                                         <div class="card-body">
-                                            <div class="d-flex justify-content-between">
-                                                <p class="card-title fw-bold my-auto" style="font-size: 24px">{{ $item['namaProduct'] }}
+                                            <div class="d-flex justify-content-between my-2">
+                                                <p class="card-title fw-bold my-auto" style="font-size: 24px">
+                                                    {{ $item->name }}
                                                 </p>
-                                                <p class="my-auto rounded bg-success px-2 py-1 fw-semibold" style="font-size: 16px">
-                                                    {{ $item['kondisi'] }}
-                                                </p>
+                                                @if ($item->condition == 'Baru')
+                                                    <p class="my-auto rounded py-1 bg-success px-2 fw-semibold"
+                                                        style="font-size: 16px">{{ $item->condition }}
+                                                    </p>
+                                                @else
+                                                    <p class="my-auto rounded py-1 bg-warning px-2 fw-semibold"
+                                                        style="font-size: 16px">{{ $item->condition }}
+                                                    </p>
+                                                @endif
                                             </div>
-                                            <div class="d-flex justify-content-between mt-2">
-                                                <p class="my-auto rounded bg-warning px-2 py-1 fw-semibold" style="font-size: 16px">
-                                                    {{ $item['stok'] }}
+                                            <div class="d-flex justify-content-between my-2">
+                                                <p class="my-auto rounded py-1 bg-success px-2 text-white fw-semibold"
+                                                    style="font-size: 16px">{{ $item->stock }}
                                                 </p>
-                                                <p class="my-auto rounded bg-info px-2 py-1 fw-semibold" style="font-size: 16px">Rp.
-                                                    {{ number_format($item['harga'], 0, ',', '.') }}
+                                                <p class="my-auto rounded py-1 bg-info px-2 fw-semibold"
+                                                    style="font-size: 16px">Rp.
+                                                    {{ number_format($item->price, 0, ',', '.') }}
+                                                </p>
+                                                <p class="my-auto rounded py-1 bg-secondary text-white px-2 fw-semibold"
+                                                    style="font-size: 16px">{{ $item->weight }} gr
                                                 </p>
                                             </div>
                                             <p class=""
-                                                style="overflow: hidden;max-width: 400px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; margin: 20px auto;">
-                                                {{ $item['deskripsi'] }}
+                                                style="overflow: hidden;max-width: 400px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin: 10px auto;">
+                                                {{ $item->description }}
                                             </p>
                                             <button class="btn btn-primary w-100">Pesan Sekarang</button>
                                         </div>

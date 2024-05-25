@@ -32,8 +32,14 @@ Route::get('/dashboard', [MarketController::class, 'dashboard'])->name('dashboar
 Route::get('/profile', [MarketController::class, 'getProfile'])->name('get_profile');
 
 Route::get('/admin/lists', [MarketController::class, 'getAdmin'])->name('admin_page')->middleware(['authenticate', 'role:superadmin']);
-Route::get('/tambah-product', [UserController::class, 'handleRequest'])->name('form_product');
-Route::post('/admin/import', [UserController::class, 'importProduct'])->name('import_data');
+Route::get('/tambah-product', [MarketController::class, 'handleRequest'])->name('form_product');
+Route::post('/post-request', [MarketController::class, 'postRequest'])->name('postRequest');
+Route::get('/product/{product}', [MarketController::class, 'editProduct'])->name('edit_product');
+Route::put('/product/{product}/update', [MarketController::class, 'updateProduct'])->name('update_product');
+Route::post('/product/{product}/delete', [MarketController::class, 'deleteProduct'])->name('delete_product');
 
-Route::get('/export-produk', [UserController::class, 'exportData'])->name('exportData');
+
+Route::post('/admin/import', [MarketController::class, 'importProduct'])->name('import_data');
+
+Route::get('/export-produk', [MarketController::class, 'exportData'])->name('exportData');
 

@@ -41,7 +41,9 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
-            'throw' => false,
+            'max_size' => 2048,
+            // 'throw' => false,
+            'throw' => true,
         ],
 
         's3' => [
