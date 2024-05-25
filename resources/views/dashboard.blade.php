@@ -18,15 +18,15 @@
             <p>{{ $user->gender }}</p>
             <p>{{ $user->age }}</p>
             <p>{{ $user->birth }}</p>
-            <p>{{ $user->alamat }}</p>
+            <p>{{ $user->address }}</p>
         </div>
     </div>
-    {{-- <div class="d-flex justify-content-center mb-3">
-        <a href="{{ route('exportDashboard') }}" class="btn btn-info me-2">Export Data</a>
+    <div class="d-flex justify-content-center mb-3">
+        <a href="" class="btn btn-info me-2">Export Data</a>
         <form action="{{ route('logout') }}" method="POST">
             @csrf()
             <button type="submit" class="btn btn-danger">Logout</button>
         </form>
-    </div> --}}
+    </div>
 </div>
 @endsection

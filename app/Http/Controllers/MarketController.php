@@ -141,22 +141,7 @@ class MarketController extends Controller
         $products = Product::all();
         return view('admin_page', ['products' => $products]);
     }
-    public function importProduct(Request $request)
-    {
-
-        DB::beginTransaction();
-        try {
-            $user = Auth::user();
-            // Excel::import(new ProductImport($user), $request->file('import'));
-            DB::commit();
-
-            return redirect()->route('admin_page');
-        } catch (\Exception $e) {
-            DB::commit();
-            Log::debug($e);
-            abort(400);
-        }
-    }
+    
     public function handleRequest(Request $request, User $user)
     {
         return view('tambah_product');
@@ -244,10 +229,69 @@ class MarketController extends Controller
         }
         return redirect()->back()->with('status', 'Berhasil menghapus data produk');
     }
+    public function detailProduct(Product $product)
+    {
+        $data = Product::all();
+        // $user = User::find(1);
+        // $data = $user->products;
+        return view('detail_product')->with('products', $data);
+        // return view('detail_product', ['product' => $product]);
+    }
+
+    // public function detailTransaksi(Request $request, Product $product, User $user)
+    // {
+    //     $user = Auth::user();
+    //     $product = Product::find($request->product_id);
 
 
+    //     $adminFee = 2500;
+    //     $uniqueCode = Transaksi::max('unique_code') + 1;
+    //     $total = $product->price + $adminFee;
 
+    //     $transaksi = Transaksi::create([
+    //         'user_id' => $user->id,
+    //         'product_id' => $product->id,
+    //         'invoice_number' => now()->timestamp,
+    //         'admin_fee' => $adminFee,
+    //         'unique_code' => $uniqueCode,
+    //         'total' => $total,
+    //         'payment_method' => $request->payment_method,
+    //         'status' => 'pending',
+    //         'expiration_date' => now()->addHours(3),
+    //     ]);
 
+    //     return view('dashboard', compact('transaksi', 'product', 'user'));
+    // }
+
+    public function detailTransaksi(Request $request)
+    {
+        $user = Auth::user();
+        $product = Product::find($request->product_id);
+    
+        // Pengecekan apakah produk ditemukan
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found.');
+        }
+    
+        $adminFee = 2500;
+        $uniqueCode = Transaksi::max('unique_code') + 1;
+        $total = $product->price + $adminFee;
+    
+        $transaksi = Transaksi::create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'invoice_number' => now()->timestamp,
+            'admin_fee' => $adminFee,
+            'unique_code' => $uniqueCode,
+            'total' => $total,
+            'payment_method' => $request->payment_method,
+            'status' => 'pending',
+            'expiration_date' => now()->addHours(3),
+        ]);
+    
+        return view('dashboard', compact('transaksi', 'product', 'user'));
+    }
+    
 
 
 

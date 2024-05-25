@@ -37,7 +37,8 @@ Route::post('/post-request', [MarketController::class, 'postRequest'])->name('po
 Route::get('/product/{product}', [MarketController::class, 'editProduct'])->name('edit_product');
 Route::put('/product/{product}/update', [MarketController::class, 'updateProduct'])->name('update_product');
 Route::post('/product/{product}/delete', [MarketController::class, 'deleteProduct'])->name('delete_product');
-
+Route::get('/product/{product}/detail', [MarketController::class, 'detailProduct'])->name('detail_product')->middleware(['authenticate', 'role:superadmin|user']);
+Route::get('/transaction-detail', [MarketController::class, 'detailTransaksi'])->name('detail_transaksi');
 
 Route::post('/admin/import', [MarketController::class, 'importProduct'])->name('import_data');
 
