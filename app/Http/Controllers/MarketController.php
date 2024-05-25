@@ -238,35 +238,10 @@ class MarketController extends Controller
         // return view('detail_product', ['product' => $product]);
     }
 
-    // public function detailTransaksi(Request $request, Product $product, User $user)
-    // {
-    //     $user = Auth::user();
-    //     $product = Product::find($request->product_id);
-
-
-    //     $adminFee = 2500;
-    //     $uniqueCode = Transaksi::max('unique_code') + 1;
-    //     $total = $product->price + $adminFee;
-
-    //     $transaksi = Transaksi::create([
-    //         'user_id' => $user->id,
-    //         'product_id' => $product->id,
-    //         'invoice_number' => now()->timestamp,
-    //         'admin_fee' => $adminFee,
-    //         'unique_code' => $uniqueCode,
-    //         'total' => $total,
-    //         'payment_method' => $request->payment_method,
-    //         'status' => 'pending',
-    //         'expiration_date' => now()->addHours(3),
-    //     ]);
-
-    //     return view('dashboard', compact('transaksi', 'product', 'user'));
-    // }
-
-    public function detailTransaksi(Request $request)
+    public function detailTransaksi(Request $request, $id)
     {
         $user = Auth::user();
-        $product = Product::find($request->product_id);
+        $product = Product::find($id);
     
         // Pengecekan apakah produk ditemukan
         if (!$product) {
@@ -276,7 +251,8 @@ class MarketController extends Controller
         $adminFee = 2500;
         $uniqueCode = Transaksi::max('unique_code') + 1;
         $total = $product->price + $adminFee;
-    
+        $payment_method = 'Via BRI';
+
         $transaksi = Transaksi::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
@@ -284,12 +260,12 @@ class MarketController extends Controller
             'admin_fee' => $adminFee,
             'unique_code' => $uniqueCode,
             'total' => $total,
-            'payment_method' => $request->payment_method,
+            'payment_method' => $payment_method,
             'status' => 'pending',
             'expiration_date' => now()->addHours(3),
         ]);
     
-        return view('dashboard', compact('transaksi', 'product', 'user'));
+        return view('detail_transaksi', compact('transaksi', 'product', 'user'));
     }
     
 

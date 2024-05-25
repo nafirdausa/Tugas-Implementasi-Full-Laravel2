@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\MarketController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MarketController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +39,10 @@ Route::get('/product/{product}', [MarketController::class, 'editProduct'])->name
 Route::put('/product/{product}/update', [MarketController::class, 'updateProduct'])->name('update_product');
 Route::post('/product/{product}/delete', [MarketController::class, 'deleteProduct'])->name('delete_product');
 Route::get('/product/{product}/detail', [MarketController::class, 'detailProduct'])->name('detail_product')->middleware(['authenticate', 'role:superadmin|user']);
-Route::get('/transaction-detail', [MarketController::class, 'detailTransaksi'])->name('detail_transaksi');
+Route::get('/transaction-detail/{id}', [MarketController::class, 'detailTransaksi'])->name('detail_transaksi');
 
-Route::post('/admin/import', [MarketController::class, 'importProduct'])->name('import_data');
+Route::post('/admin/import', [ProductController::class, 'importCSV'])->name('product.import');
 
-Route::get('/export-produk', [MarketController::class, 'exportData'])->name('exportData');
+Route::get('/export-produk', [ProductController::class, 'exportCSV'])->name('product.export');
+
 

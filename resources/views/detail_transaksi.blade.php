@@ -29,7 +29,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <p>Status</p>
-                    <p class="bg-danger rounded-5 fw-semibold mb-0 py-1 px-1">{{ $transaksi->status }}</p>
+                    <p class="bg-danger rounded fw-semibold mb-0 py-1 px-1">{{ $transaksi->status }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p>Tanggal Kadaluwarsa</p>
@@ -41,14 +41,14 @@
                 <p class="border"></p>
                 <div class="d-flex mb-2">
                     <div class="img">
-                        <img class="object-fit-cover" src="{{ $product->image }}" alt=""
+                        <img class="object-fit-cover" src="{{Storage::url($product->image)  }}" alt="produk image"
                             style="width: 150px; height: 160px;">
                     </div>
                     <div class="detail ms-3 mt-3" style="width: 100%">
                         <h3 class="fw-bold fs-4">{{ $product->name }}</h3>
                         <div class="d-flex justify-content-between">
                             <P class="mb-1">Stok: {{ $product->stock }}</P>
-                            <p class="mb-1 bg-info rounded-4 px-2">Rp.
+                            <p class="mb-1 rounded bg-info rounded-4 px-2">Rp.
                                 {{ number_format($product->price, 0, ',', '.') }}</p>
                         </div>
                         <div class="d-flex justify-content-between">

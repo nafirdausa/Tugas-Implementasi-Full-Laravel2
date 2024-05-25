@@ -13,7 +13,7 @@
                     <button data-bs-toggle="modal" data-bs-target="#exampleModal"
                         class="btn btn-md btn-success fw-bold my-auto me-1">Import
                         Produk</button>
-                    <a href="" class="btn btn-md btn-warning fw-bold my-auto">Eksport
+                    <a href="{{ route('product.export') }}" class="btn btn-md btn-warning fw-bold my-auto">Eksport
                     {{-- <a href="{{ route('exportData') }}" class="btn btn-md btn-warning fw-bold my-auto">Eksport --}}
                         Produk</a>
                 </div>
@@ -58,6 +58,32 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Import Data Produk</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('product.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <a href="{{ url('/templates/dummy_products.csv') }}">Klik untuk mengunduh template import</a>
+                    <p class="font-weight-bold">Data Excel</p>
+                    <input type="file" class="form-control" id="import_csv" name="import_csv" accept=".csv">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+            </div>
+        </div>
         </div>
     </div>
 

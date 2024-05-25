@@ -1,5 +1,8 @@
 @extends('layout.main')
 @section('container')
+@if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 <div class="row justify-content-center container ms-5 mt-5">
     <div class="col-md-9 border rounded-2 border-black">
         <h1 class="text-center fw-bold fs-4 mt-2 mb-3">Detail Produk</h1>
@@ -27,7 +30,7 @@
                     </div>
                     <p style="text-align: justify">{{ $item->description }}</p>
                     <div class="text-center">
-                        <a href="{{ route('detail_transaksi') }}" class="btn btn-dark fw-semibold">Checkout</a>
+                        <a href="{{ route('detail_transaksi', ['id' => $item->id]) }}" class="btn btn-dark fw-semibold">Checkout</a>
                     </div>
                 </div>
             @endforeach
